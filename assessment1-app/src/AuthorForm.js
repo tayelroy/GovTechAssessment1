@@ -17,7 +17,7 @@ function AuthorForm({ onSubmit }) {
         type="text"
         value={authorName}
         onChange={(e) => setAuthorName(e.target.value)}
-        placeholder="Enter author name"
+        placeholder="Enter Author Name: John Doe - John@email.com"
       />
       <button type="submit">Submit</button>
     </form>
