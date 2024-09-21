@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import AuthorForm from './AuthorForm.js';
-import AuthorList from './AuthorList';
-import UserList from './UserList';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
+import AuthorForm from './AuthorForm';
 import './App.css';
 
-function App() {
+const AuthorList = lazy(() => import('./AuthorList'));
+const UserList = lazy(() => import('./UserList'));
+
+const App = () => {
   const [authors, setAuthors] = useState([]);
   const [users, setUsers] = useState([]);
 
@@ -27,13 +28,17 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="container">
       <h1>Assessment 1 App</h1>
       <AuthorForm onSubmit={handleAuthorSubmit} />
-      <AuthorList authors={authors} />
-      <UserList users={users} />
+      <Suspense fallback={<div>Loading authors...</div>}>
+        <AuthorList authors={authors} />
+      </Suspense>
+      <Suspense fallback={<div>Loading users...</div>}>
+        <UserList users={users} />
+      </Suspense>
     </div>
   );
-}
+};
 
 export default App;
